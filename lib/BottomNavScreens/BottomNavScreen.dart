@@ -1,3 +1,9 @@
+import 'package:baatcheet/BottomNavScreens/HomeScreen.dart';
+import 'package:baatcheet/BottomNavScreens/LikeScreen.dart';
+import 'package:baatcheet/BottomNavScreens/PorfileScreen.dart';
+import 'package:baatcheet/BottomNavScreens/SearchScreen.dart';
+import 'package:baatcheet/BottomNavScreens/ShortsScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
@@ -14,12 +20,33 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('BaatCheet'),
+        centerTitle: true,
         actions: [
           GestureDetector(
-            onTap: (){},
+            onTap: (){
+
+            },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.send_rounded,color: Colors.white,),
+              padding: EdgeInsets.only(right: 15),
+              child: CircleAvatar(
+                radius: 15,
+                backgroundColor: Colors.grey,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 10,left: 5),
+                      child: CircleAvatar(
+                        radius: 8,
+                        backgroundColor: Colors.red,
+                        //child: ,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -30,6 +57,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         currentIndex: currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (index){
+          _controller.jumpToPage(index);
           setState(() {
             currentIndex = index;
           });
@@ -54,9 +82,41 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: currentIndex == 4 ? Icon(Icons.movie_creation,) : Icon(Icons.movie_creation_outlined,),
+            icon: Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 10,
+                    backgroundColor: Colors.grey,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 5,),
+                        CircleAvatar(
+                          radius: 2,
+                          backgroundColor: Colors.red,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             label: '',
           ),
+        ],
+      ),
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _controller,
+        children: [
+          HomeScreen(),
+          SearchScreen(),
+          ShortsScreen(),
+          LikeScreen(),
+          ProfileScreen(),
         ],
       ),
     );
