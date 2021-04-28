@@ -19,38 +19,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('BaatCheet'),
-        centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: (){
-
-            },
-            child: Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: CircleAvatar(
-                radius: 15,
-                backgroundColor: Colors.grey,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    margin: EdgeInsets.only(left: 10),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10,left: 5),
-                      child: CircleAvatar(
-                        radius: 8,
-                        backgroundColor: Colors.red,
-                        //child: ,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
       drawer: Drawer(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blue,
@@ -88,7 +56,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                 children: [
                   CircleAvatar(
                     radius: 10,
-                    backgroundColor: Colors.grey,
+                    backgroundColor: Colors.white,
                   ),
                   Container(
                     child: Column(
@@ -122,3 +90,38 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     );
   }
 }
+
+/*
+appBar: AppBar(
+        title: Text('BaatCheet'),
+        centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: (){
+
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: CircleAvatar(
+                radius: 15,
+                backgroundColor: Colors.grey,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 10,left: 5),
+                      child: CircleAvatar(
+                        radius: 8,
+                        backgroundColor: Colors.red,
+                        //child: ,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+ */
