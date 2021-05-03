@@ -23,7 +23,17 @@ class _PostImagesState extends State<PostImages> {
               ),
               itemCount: 20,
               itemBuilder: (context,index){
+              if(index%4==0){
                 return Container(
+                  height: 200,
+                  color: Colors.red,
+                  child: Center(child: Text(index.toString(),style: TextStyle(color: Colors.white),),),
+                );
+              }
+              else
+                return Container(
+                  height: 100,
+                  width: 100,
                   color: Colors.red,
                   child: Center(child: Text(index.toString(),style: TextStyle(color: Colors.white),),),
                 );
