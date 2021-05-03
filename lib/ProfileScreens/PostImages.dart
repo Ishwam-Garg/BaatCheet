@@ -18,10 +18,10 @@ class _PostImagesState extends State<PostImages> {
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 1,
-                mainAxisSpacing: 1,
+                crossAxisSpacing: 1.5,
+                mainAxisSpacing: 1.5,
               ),
-              itemCount: 10,
+              itemCount: 20,
               itemBuilder: (context,index){
                 return Container(
                   color: Colors.red,

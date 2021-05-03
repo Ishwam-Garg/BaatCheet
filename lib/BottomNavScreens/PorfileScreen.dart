@@ -54,6 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: DefaultTabController(
         length: 2,
         child: NestedScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           headerSliverBuilder: (context,value){
             return [
               SliverAppBar(
@@ -81,90 +82,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   collapseMode: CollapseMode.pin,
                   background: RefreshIndicator(
                     color: Colors.white,
-                    backgroundColor: Colors.blue,
-                    onRefresh: ()async{
-                      setState(() {
-
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 5,),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius: 50,
-                                  backgroundColor: Colors.red,
-                                ),
-                                Container(
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Text('11',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
-                                        SizedBox(height: 5,),
-                                        Text('Posts',style: TextStyle(color: Colors.white),)
-                                      ],
+                    backgroundColor: Colors.blue.shade700,
+                    onRefresh: _onRefresh,
+                    child: SingleChildScrollView(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 5,),
+                            Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 50,
+                                    backgroundColor: Colors.red,
+                                  ),
+                                  Container(
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Text('11',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+                                          SizedBox(height: 5,),
+                                          Text('Posts',style: TextStyle(color: Colors.white),)
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Text('412',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
-                                        SizedBox(height: 5,),
-                                        Text('Followers',style: TextStyle(color: Colors.white),)
-                                      ],
+                                  Container(
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Text('412',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+                                          SizedBox(height: 5,),
+                                          Text('Followers',style: TextStyle(color: Colors.white),)
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Text('314',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
-                                        SizedBox(height: 5,),
-                                        Text('Following',style: TextStyle(color: Colors.white),)
-                                      ],
+                                  Container(
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Text('314',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+                                          SizedBox(height: 5,),
+                                          Text('Following',style: TextStyle(color: Colors.white),)
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 10,),
-                          Text('Ishwam Garg',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                          SizedBox(height: 10,),
-                          Container(
-                              height: 100,
-                              width: double.infinity,
-                              child: Text(sampleBio,maxLines: 6,overflow: TextOverflow.fade,style: TextStyle(color: Colors.white),)),
-                          SizedBox(height: 20,),
-                          GestureDetector(
-                              onTap: (){},
-                              child: Container(
+                            SizedBox(height: 10,),
+                            Text('Ishwam Garg',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                            SizedBox(height: 10,),
+                            Container(
+                                height: 100,
                                 width: double.infinity,
-                                padding: EdgeInsets.symmetric(vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  border: Border.all(
-                                    color: Colors.grey.shade300,
-                                    width: 1,
+                                child: Text(sampleBio,maxLines: 6,overflow: TextOverflow.fade,style: TextStyle(color: Colors.white),)),
+                            SizedBox(height: 20,),
+                            GestureDetector(
+                                onTap: (){},
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    border: Border.all(
+                                      color: Colors.grey.shade300,
+                                      width: 1,
+                                    ),
                                   ),
-                                ),
-                                child: Center(child: Text('Edit Profile',
-                                  style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),),
-                              )),
-                          SizedBox(height: 10,),
-                          Text('Story Highlights',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
-                        ],
+                                  child: Center(child: Text('Edit Profile',
+                                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),),
+                                )),
+                            SizedBox(height: 10,),
+                            Text('Story Highlights',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -182,4 +183,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+  Future<void> _onRefresh() async{
+    await new Future.delayed(new Duration(seconds: 3)).whenComplete((){
+      setState(() {
+
+      });
+      print('page refreshed');
+    });
+  }
+
 }

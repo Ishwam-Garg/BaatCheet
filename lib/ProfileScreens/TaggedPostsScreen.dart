@@ -18,10 +18,10 @@ class _TaggedPostsScreenState extends State<TaggedPostsScreen> {
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 1,
-              mainAxisSpacing: 1,
+              crossAxisSpacing: 1.5,
+              mainAxisSpacing: 1.5,
             ),
-            itemCount: 10,
+            itemCount: 15,
             itemBuilder: (context,index){
               return Container(
                 color: Colors.green,
