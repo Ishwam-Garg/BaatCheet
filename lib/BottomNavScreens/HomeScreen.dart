@@ -133,153 +133,186 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                 ),
               ),
-              SizedBox(height: 15,),
-              Container(
-                width: double.infinity,
-                //padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                child: Column(
-                  children: [
-                    //user details container
-                    Container(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+              Column(
+                children: List.generate(10, (index){
+                  return Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(top: 30),
+                    child: Column(
+                      children: [
+                        //user details container
+                        Container(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: Colors.purple,
-                                  child: CircleAvatar(
-                                    radius: 28,
-                                    backgroundColor: Colors.white,
-                                    //backgroundImage: NetworkImage(''),
-                                    child: CircleAvatar(
-                                      radius: 25,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 5,),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 5,),
-                                    Text('User Name',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
-                                    SizedBox(height: 10,),
-                                    Text('tagged location',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400))
+                                    CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: Colors.purple,
+                                      child: CircleAvatar(
+                                        radius: 28,
+                                        backgroundColor: Colors.white,
+                                        //backgroundImage: NetworkImage(''),
+                                        child: CircleAvatar(
+                                          radius: 25,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 5,),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 5,),
+                                        Text('User Name',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
+                                        SizedBox(height: 10,),
+                                        Text('tagged location',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400))
+                                      ],
+                                    ),
                                   ],
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: InkWell(
+                                    customBorder: CircleBorder(),
+                                    onTap: (){},
+                                    child: Icon(Icons.more_vert,size: 28,),
+                                  ),
                                 ),
                               ],
                             ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: InkWell(
-                                customBorder: CircleBorder(),
-                                onTap: (){},
-                                child: Icon(Icons.more_horiz,size: 28,),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 5,),
-                    GestureDetector(
-                      onDoubleTap: (){
-                        setState(() {
-                          _isLiked = !_isLiked;
-                        });
-                        AnimateHeart();
-                      },
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height*0.5,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              //image: DecorationImage(image: NetworkImage(''),fit: BoxFit.fill),
-                            ),
                           ),
-                          _isLiked ? (LikeSize == 0 ? Container() : Icon(Icons.favorite,size: LikeSize,color: Colors.white,))
-                              : Container(),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Row(
+                        ),
+                        SizedBox(height: 5,),
+                        GestureDetector(
+                          onDoubleTap: (){
+                            setState(() {
+                              _isLiked = !_isLiked;
+                            });
+                            AnimateHeart();
+                          },
+                          child: Stack(
+                            alignment: Alignment.center,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(left: 15),
-                                child: InkWell(
-                                  customBorder: CircleBorder(),
-                                  //hoverColor: Colors.green,
-                                  onTap: (){
-                                    setState(() {
-                                      _isLiked = !_isLiked;
-                                    });
-                                    AnimateHeart();
-                                  },
-                                  child: Center(
-                                      child: _isLiked ? Icon(Icons.favorite,color: Colors.red.shade400,)
-                                          : Icon(Icons.favorite_border),
-                                  ),
+                                width: double.infinity,
+                                height: MediaQuery.of(context).size.height*0.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  //image: DecorationImage(image: NetworkImage(''),fit: BoxFit.fill),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(left: 15),
-                                child: InkWell(
-                                  customBorder: CircleBorder(),
-                                  hoverColor: Colors.green,
-                                  onTap: (){
-
-                                  },
-                                  child: Center(
-                                    child: Icon(EvaIcons.messageCircleOutline),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 15),
-                                child: InkWell(
-                                  customBorder: CircleBorder(),
-                                  hoverColor: Colors.green,
-                                  onTap: (){
-
-                                  },
-                                  child: Center(
-                                    child: Icon(Icons.send),
-                                  ),
-                                ),
-                              ),
+                              _isLiked ? (LikeSize == 0 ? Container() : Icon(Icons.favorite,size: LikeSize,color: Colors.white,))
+                                  : Container(),
                             ],
                           ),
                         ),
-                        InkWell(
-                          customBorder: CircleBorder(),
-                          onTap: (){
-                            setState(() {
-                              _isBookMarked = !_isBookMarked;
-                            });
-                          },
-                          child: _isBookMarked ? Icon(Icons.bookmark_sharp,size: 28,)
-                              :
-                          Icon(Icons.bookmark_border_sharp,size: 28,),
+                        SizedBox(height: 5,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: InkWell(
+                                      customBorder: CircleBorder(),
+                                      //hoverColor: Colors.green,
+                                      onTap: (){
+                                        setState(() {
+                                          _isLiked = !_isLiked;
+                                        });
+                                        AnimateHeart();
+                                      },
+                                      child: Center(
+                                        child: _isLiked ? Icon(Icons.favorite,color: Colors.red.shade400,)
+                                            : Icon(Icons.favorite_border),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: InkWell(
+                                      customBorder: CircleBorder(),
+                                      hoverColor: Colors.green,
+                                      onTap: (){
+
+                                      },
+                                      child: Center(
+                                        child: Icon(EvaIcons.messageCircleOutline),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: InkWell(
+                                      customBorder: CircleBorder(),
+                                      hoverColor: Colors.green,
+                                      onTap: (){
+
+                                      },
+                                      child: Center(
+                                        child: Icon(Icons.send),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            InkWell(
+                              customBorder: CircleBorder(),
+                              onTap: (){
+                                setState(() {
+                                  _isBookMarked = !_isBookMarked;
+                                });
+                              },
+                              child: _isBookMarked ? Icon(Icons.bookmark_sharp,size: 28,)
+                                  :
+                              Icon(Icons.bookmark_border_sharp,size: 28,),
+                            ),
+                          ],
                         ),
+                        SizedBox(height: 5,),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: GestureDetector(
+                            onTap: (){},
+                            child: Container(
+                              padding: EdgeInsets.only(left: 15),
+                              child: Text('2718 Likes',style: TextStyle(fontWeight: FontWeight.bold,
+                                  color: Colors.blue,fontSize: 14),),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(left: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'username',
+                                    style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              )),
+                            ],
+                          ),
+                        ),
+
                       ],
                     ),
-
-                  ],
-                ),
+                  );
+                }),
               ),
             ],
           ),
@@ -335,6 +368,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   {
     return Container(
       margin: EdgeInsets.only(left: 10),
+      width: 100,
       child: Column(
         children: [
           CircleAvatar(
@@ -350,7 +384,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
           ),
           SizedBox(height: 10,),
-          Text('User Name',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),)
+          Text('User Name',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),overflow: TextOverflow.ellipsis,maxLines: 1,)
         ],
       ),
     );
