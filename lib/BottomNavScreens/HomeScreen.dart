@@ -1,14 +1,26 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:animate_icons/animate_icons.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
 
   bool isMessages = true;
+  bool _isBookMarked = false;
+  bool _isLiked = false;
+  double LikeSize = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 10,),
                             Text('Your Story',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-
                           ],
                         ),
                       ),
@@ -125,62 +136,146 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 15,),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                //padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                 child: Column(
                   children: [
                     //user details container
                     Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.purple,
-                                child: CircleAvatar(
-                                  radius: 28,
-                                  backgroundColor: Colors.white,
-                                  //backgroundImage: NetworkImage(''),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Colors.purple,
                                   child: CircleAvatar(
-                                    radius: 25,
+                                    radius: 28,
+                                    backgroundColor: Colors.white,
+                                    //backgroundImage: NetworkImage(''),
+                                    child: CircleAvatar(
+                                      radius: 25,
+                                    ),
                                   ),
                                 ),
+                                SizedBox(width: 5,),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 5,),
+                                    Text('User Name',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
+                                    SizedBox(height: 10,),
+                                    Text('tagged location',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400))
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: InkWell(
+                                customBorder: CircleBorder(),
+                                onTap: (){},
+                                child: Icon(Icons.more_horiz,size: 28,),
                               ),
-                              SizedBox(width: 5,),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 5,),
-                                  Text('User Name',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
-                                  SizedBox(height: 10,),
-                                  Text('tagged location',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400))
-                                ],
-                              ),
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: InkWell(
-                              customBorder: CircleBorder(),
-                              onTap: (){},
-                              child: Icon(Icons.more_horiz,size: 28,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    GestureDetector(
+                      onDoubleTap: (){
+                        setState(() {
+                          _isLiked = !_isLiked;
+                        });
+                        AnimateHeart();
+                      },
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height*0.5,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              //image: DecorationImage(image: NetworkImage(''),fit: BoxFit.fill),
                             ),
                           ),
+                          _isLiked ? (LikeSize == 0 ? Container() : Icon(Icons.favorite,size: LikeSize,color: Colors.white,))
+                              : Container(),
                         ],
                       ),
                     ),
                     SizedBox(height: 5,),
-                    Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height*0.6,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        //image: DecorationImage(image: NetworkImage(''),fit: BoxFit.fill),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 15),
+                                child: InkWell(
+                                  customBorder: CircleBorder(),
+                                  //hoverColor: Colors.green,
+                                  onTap: (){
+                                    setState(() {
+                                      _isLiked = !_isLiked;
+                                    });
+                                    AnimateHeart();
+                                  },
+                                  child: Center(
+                                      child: _isLiked ? Icon(Icons.favorite,color: Colors.red.shade400,)
+                                          : Icon(Icons.favorite_border),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 15),
+                                child: InkWell(
+                                  customBorder: CircleBorder(),
+                                  hoverColor: Colors.green,
+                                  onTap: (){
+
+                                  },
+                                  child: Center(
+                                    child: Icon(EvaIcons.messageCircleOutline),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 15),
+                                child: InkWell(
+                                  customBorder: CircleBorder(),
+                                  hoverColor: Colors.green,
+                                  onTap: (){
+
+                                  },
+                                  child: Center(
+                                    child: Icon(Icons.send),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          customBorder: CircleBorder(),
+                          onTap: (){
+                            setState(() {
+                              _isBookMarked = !_isBookMarked;
+                            });
+                          },
+                          child: _isBookMarked ? Icon(Icons.bookmark_sharp,size: 28,)
+                              :
+                          Icon(Icons.bookmark_border_sharp,size: 28,),
+                        ),
+                      ],
                     ),
 
                   ],
@@ -200,6 +295,42 @@ class _HomeScreenState extends State<HomeScreen> {
         print('Page refreshed');
     });
   }
+
+  void AnimateHeart(){
+    setState(() {
+      LikeSize = 40;
+    });
+    Timer.periodic(Duration(milliseconds: 1), (timer) {
+      if(LikeSize<=80)
+      {
+        setState(() {
+          LikeSize +=1;
+        });
+      }
+      else
+      {
+        setState(() {
+          Timer.periodic(Duration(milliseconds: 10), (timer) {
+            if(LikeSize <=  40)
+              {
+                setState(() {
+                  LikeSize = 0;
+                });
+                timer.cancel();
+              }
+            else
+              {
+                setState(() {
+                  LikeSize-=1;
+                });
+              }
+          });
+        });
+        timer.cancel();
+      }
+    });
+  }
+
   Widget StoryTile()
   {
     return Container(

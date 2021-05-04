@@ -15,6 +15,7 @@ class BottomNavScreen extends StatefulWidget {
 
 class _BottomNavScreenState extends State<BottomNavScreen> {
   int currentIndex = 0;
+  bool isNotfications = true;
   PageController _controller = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                     radius: 10,
                     backgroundColor: Colors.white,
                   ),
-                  Container(
+                  isNotfications == true ? Container(
                     child: Column(
                       children: [
                         SizedBox(height: 5,),
@@ -68,7 +69,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                         ),
                       ],
                     ),
-                  ),
+                  ) : Container(),
                 ],
               ),
             ),
