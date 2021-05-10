@@ -16,6 +16,7 @@ class BottomNavScreen extends StatefulWidget {
 class _BottomNavScreenState extends State<BottomNavScreen> {
   int currentIndex = 0;
   bool isNotfications = true;
+  bool isHomeNotfications = true;
   PageController _controller = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
@@ -31,11 +32,31 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             currentIndex = index;
           });
         },
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         items: [
           BottomNavigationBarItem(
-            icon: currentIndex == 0 ? Icon(Icons.home_filled,) : Icon(Icons.home_outlined,),
+            icon: isHomeNotfications ? Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Column(
+                children: [
+                  currentIndex == 0 ? Icon(Icons.home_filled,) : Icon(Icons.home_outlined,),
+                  isNotfications == true ? Container(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 5,),
+                        CircleAvatar(
+                          radius: 2,
+                          backgroundColor: Colors.red,
+                        ),
+                      ],
+                    ),
+                  ) : Container(),
+                ],
+              ),
+            ) : (currentIndex == 0 ? Icon(Icons.home_filled,) : Icon(Icons.home_outlined,)),
             label: '',
           ),
           BottomNavigationBarItem(

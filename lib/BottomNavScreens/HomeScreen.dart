@@ -1,9 +1,12 @@
 import 'dart:async';
-
+import 'package:flare_flutter/flare.dart';
+import 'package:flutter/services.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_icons/animate_icons.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:rive/rive.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -11,15 +14,38 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
 
+  Artboard _riveArtboard1;
+  Artboard _riveArtboard2;
+  RiveAnimationController _controller;
+
   bool isMessages = true;
   bool _isBookMarked = false;
   bool _isLiked = false;
   double LikeSize = 0;
 
+  void loadrivFile()async{
+    final bytes = await rootBundle.load('icons/heartanimated.riv');
+    final file  = RiveFile();
+    if (file.import(bytes)) {
+      // Select an animation by its name
+      setState((){
+        _riveArtboard2 = file.mainArtboard
+          ..addController(
+            SimpleAnimation('idle'),
+          );
+        _riveArtboard1 = file.mainArtboard
+          ..addController(
+            SimpleAnimation('start'),
+          );
+      });
+    }
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loadrivFile();
+
   }
 
   @override
@@ -89,31 +115,31 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     children: [
                       //user story box
                       Container(
-                        width: 100,
+                        //width: 100,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CircleAvatar(
-                              radius: 49,
+                              radius: 39,
                               backgroundColor: Colors.purple,
                               child: CircleAvatar(
-                                radius: 47,
+                                radius: 37,
                                 backgroundColor: Colors.white,
                                 child: CircleAvatar(
-                                  radius: 45,
+                                  radius: 35,
                                   backgroundColor: Colors.grey,
                                   child: Align(
                                     alignment: Alignment.bottomRight,
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 5),
+                                      margin: EdgeInsets.only(bottom: 0),
                                       child: CircleAvatar(
-                                        radius: 15,
+                                        radius: 12,
                                         backgroundColor: Colors.white,
                                         child: CircleAvatar(
-                                          radius: 13,
+                                          radius: 10,
                                           backgroundColor: Colors.blue.shade600,
-                                          child: Text('+',style: TextStyle(fontSize: 16,color: Colors.white),),
+                                          child: Text('+',style: TextStyle(fontSize: 14,color: Colors.white),),
                                         ),
                                       ),
                                     ),
@@ -143,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         //user details container
                         Container(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            padding: EdgeInsets.symmetric(horizontal: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,18 +178,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CircleAvatar(
-                                      radius: 30,
+                                      radius: 25,
                                       backgroundColor: Colors.purple,
                                       child: CircleAvatar(
-                                        radius: 28,
+                                        radius: 23,
                                         backgroundColor: Colors.white,
                                         //backgroundImage: NetworkImage(''),
                                         child: CircleAvatar(
-                                          radius: 25,
+                                          radius: 21,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 5,),
+                                    SizedBox(width: 10,),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,6 +246,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                               child: Row(
                                 children: [
                                   Container(
+                                    width: 20,
+                                    height: 20,
                                     margin: EdgeInsets.only(left: 15),
                                     child: InkWell(
                                       customBorder: CircleBorder(),
@@ -231,11 +259,32 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                         AnimateHeart();
                                       },
                                       child: Center(
-                                        child: _isLiked ? Icon(Icons.favorite,color: Colors.red.shade400,)
-                                            : Icon(Icons.favorite_border),
+                                        child: _isLiked ? Icon(Icons.favorite,color: Colors.red.shade600,) :
+                                        Icon(Icons.favorite_border,),
                                       ),
                                     ),
                                   ),
+                                  Container(
+                                    width: 20,
+                                    height: 20,
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: InkWell(
+                                      customBorder: CircleBorder(),
+                                      //hoverColor: Colors.green,
+                                      onTap: (){
+                                        setState(() {
+                                          _isLiked = !_isLiked;
+                                        });
+                                        AnimateHeart();
+                                      },
+                                      child: Center(
+                                        child: _riveArtboard1 ==null ? Container() : Rive(
+                                          artboard: _isLiked ? _riveArtboard1 : _riveArtboard2,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
                                   Container(
                                     margin: EdgeInsets.only(left: 15),
                                     child: InkWell(
@@ -265,6 +314,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 ],
                               ),
                             ),
+
                             InkWell(
                               customBorder: CircleBorder(),
                               onTap: (){
@@ -331,20 +381,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   void AnimateHeart(){
     setState(() {
-      LikeSize = 40;
+      LikeSize = 80;
     });
     Timer.periodic(Duration(milliseconds: 1), (timer) {
-      if(LikeSize<=80)
+      if(LikeSize<=120)
       {
         setState(() {
-          LikeSize +=1;
+          LikeSize +=4;
         });
       }
       else
       {
         setState(() {
           Timer.periodic(Duration(milliseconds: 10), (timer) {
-            if(LikeSize <=  40)
+            if(LikeSize <=  80)
               {
                 setState(() {
                   LikeSize = 0;
@@ -354,7 +404,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             else
               {
                 setState(() {
-                  LikeSize-=1;
+                  LikeSize-=4;
                 });
               }
           });
@@ -368,17 +418,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   {
     return Container(
       margin: EdgeInsets.only(left: 10),
-      width: 100,
+      //width: 100,
       child: Column(
         children: [
           CircleAvatar(
-            radius: 49,
+            radius: 39,
             backgroundColor: Colors.purple,
             child: CircleAvatar(
-              radius: 47,
+              radius: 37,
               backgroundColor: Colors.white,
               child: CircleAvatar(
-                radius: 45,
+                radius: 35,
                 backgroundColor: Colors.grey,
               ),
             ),
