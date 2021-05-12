@@ -220,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             setState(() {
                               _isLiked = !_isLiked;
                             });
-                            AnimateHeart();
+                            //AnimateHeart();
                           },
                           child: Stack(
                             alignment: Alignment.center,
@@ -233,8 +233,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   //image: DecorationImage(image: NetworkImage(''),fit: BoxFit.fill),
                                 ),
                               ),
+                              _isLiked ? Container(
+                                height: 200,
+                                width: 200,
+                                child: FlareActor(
+                                  'icons/Like2.flr',
+                                  animation: 'start',
+                                ),
+                              ) : Container(),
+                              /*
                               _isLiked ? (LikeSize == 0 ? Container() : Icon(Icons.favorite,size: LikeSize,color: Colors.white,))
                                   : Container(),
+                               */
                             ],
                           ),
                         ),
@@ -245,48 +255,30 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             Container(
                               child: Row(
                                 children: [
-                                  Container(
-                                    width: 20,
-                                    height: 20,
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: InkWell(
-                                      customBorder: CircleBorder(),
-                                      //hoverColor: Colors.green,
-                                      onTap: (){
-                                        setState(() {
-                                          _isLiked = !_isLiked;
-                                        });
-                                        AnimateHeart();
-                                      },
-                                      child: Center(
-                                        child: _isLiked ? Icon(Icons.favorite,color: Colors.red.shade600,) :
-                                        Icon(Icons.favorite_border,),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 20,
-                                    height: 20,
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: InkWell(
-                                      customBorder: CircleBorder(),
-                                      //hoverColor: Colors.green,
-                                      onTap: (){
-                                        setState(() {
-                                          _isLiked = !_isLiked;
-                                        });
-                                        AnimateHeart();
-                                      },
-                                      child: Center(
-                                        child: _riveArtboard1 ==null ? Container() : Rive(
-                                          artboard: _isLiked ? _riveArtboard1 : _riveArtboard2,
+                                  InkWell(
+                                    onTap: (){
+                                      setState(() {
+                                        _isLiked = !_isLiked;
+                                      });
+                                    },
+                                    child: Center(
+                                      child: _isLiked ? Container(
+                                        width: 50,
+                                        height: 50,
+                                        child: FlareActor(
+                                          'icons/Like.flr',
+                                          animation: "start",
+                                          alignment: Alignment.center,
+                                          fit: BoxFit.fill,
+                                          isPaused: false,
                                         ),
-                                      ),
+                                      ) : Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: Icon(Icons.favorite_border)),
                                     ),
                                   ),
-
                                   Container(
-                                    margin: EdgeInsets.only(left: 15),
                                     child: InkWell(
                                       customBorder: CircleBorder(),
                                       hoverColor: Colors.green,

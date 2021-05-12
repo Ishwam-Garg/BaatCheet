@@ -17,6 +17,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   int currentIndex = 0;
   bool isNotfications = true;
   bool isHomeNotfications = true;
+  bool isLikeNotfications = true;
   PageController _controller = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
@@ -43,17 +44,11 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
               child: Column(
                 children: [
                   currentIndex == 0 ? Icon(Icons.home_filled,) : Icon(Icons.home_outlined,),
-                  isNotfications == true ? Container(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 5,),
-                        CircleAvatar(
-                          radius: 2,
-                          backgroundColor: Colors.red,
-                        ),
-                      ],
-                    ),
-                  ) : Container(),
+                  SizedBox(height: 5,),
+                  CircleAvatar(
+                    radius: 2,
+                    backgroundColor: Colors.red,
+                  ),
                 ],
               ),
             ) : (currentIndex == 0 ? Icon(Icons.home_filled,) : Icon(Icons.home_outlined,)),
@@ -68,7 +63,19 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: currentIndex == 3 ? Icon(EvaIcons.heart,) : Icon(EvaIcons.heartOutline,),
+            icon: isLikeNotfications ? Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Column(
+                children: [
+                  currentIndex == 3 ? Icon(EvaIcons.heart,) : Icon(EvaIcons.heartOutline,),
+                  SizedBox(height: 5,),
+                  CircleAvatar(
+                    radius: 2,
+                    backgroundColor: Colors.red,
+                  ),
+                ],
+              ),
+            ) : currentIndex == 3 ? Icon(EvaIcons.heart,) : Icon(EvaIcons.heartOutline,),
             label: '',
           ),
           BottomNavigationBarItem(
