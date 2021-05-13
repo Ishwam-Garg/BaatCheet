@@ -14,11 +14,20 @@ class BottomNavScreen extends StatefulWidget {
 }
 
 class _BottomNavScreenState extends State<BottomNavScreen> {
-  int currentIndex = 0;
+  int UserCount = 2;
+  int currentIndex = 2;
   bool isNotfications = true;
   bool isHomeNotfications = true;
   bool isLikeNotfications = true;
-  PageController _controller = PageController(initialPage: 0);
+  PageController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = PageController(initialPage: currentIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,26 +88,31 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 5),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 10,
-                    backgroundColor: Colors.white,
-                  ),
-                  isNotfications == true ? Container(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 5,),
-                        CircleAvatar(
-                          radius: 2,
-                          backgroundColor: Colors.red,
-                        ),
-                      ],
+            icon: GestureDetector(
+              onLongPress: (){
+                UsersBottomModalSheet(context,UserCount);
+              },
+              child: Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: Colors.white,
                     ),
-                  ) : Container(),
-                ],
+                    isNotfications == true ? Container(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5,),
+                          CircleAvatar(
+                            radius: 2,
+                            backgroundColor: Colors.red,
+                          ),
+                        ],
+                      ),
+                    ) : Container(),
+                  ],
+                ),
               ),
             ),
             label: '',
@@ -118,39 +132,176 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       ),
     );
   }
-}
 
-/*
-appBar: AppBar(
-        title: Text('BaatCheet'),
-        centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: (){
-
-            },
-            child: Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: CircleAvatar(
-                radius: 15,
-                backgroundColor: Colors.grey,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    margin: EdgeInsets.only(left: 10),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10,left: 5),
-                      child: CircleAvatar(
-                        radius: 8,
-                        backgroundColor: Colors.red,
-                        //child: ,
+  void UsersBottomModalSheet(BuildContext context,int userCount){
+    showModalBottomSheet(
+      isDismissible: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+        context: context,
+        builder: (context){
+          return Container(
+            height: 300,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                Container(
+                  height: 40,
+                  child: Center(
+                    child: Container(
+                      width: 40,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey.shade400,
                       ),
                     ),
                   ),
                 ),
-              ),
+                Container(
+                  height: 260,
+                  child: ListView.builder(
+                      itemCount: UserCount,
+                      itemBuilder: (context,index){
+                          if(index == userCount - 1)
+                            {
+                              return Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(top: 15),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 30,
+                                                  backgroundColor: Colors.grey.shade300,
+                                                  child: CircleAvatar(
+                                                    radius: 29,
+                                                    backgroundColor: Colors.grey.shade700,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 20,),
+                                                Text('username',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.bold),),
+                                              ],
+                                            ),
+                                          ),
+                                          CircleAvatar(
+                                            radius: 16,
+                                            backgroundColor: Colors.blue,
+                                            child: CircleAvatar(
+                                              radius: 5,
+                                              backgroundColor: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 15),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 30,
+                                                  child: CircleAvatar(
+                                                    radius: 29,
+                                                    backgroundColor: Colors.white,
+                                                    child: Center(
+                                                      child: Icon(Icons.add,color: Colors.black,),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(width: 20,),
+                                                Text('Add Account',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.bold),),
+                                              ],
+                                            ),
+                                          ),
+                                          CircleAvatar(
+                                            radius: 16,
+                                            backgroundColor: Colors.blue,
+                                            child: CircleAvatar(
+                                              radius: 15,
+                                              backgroundColor: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          else
+                           return Container(
+                              margin: EdgeInsets.only(top: 15),
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 30,
+                                          backgroundColor: Colors.grey.shade300,
+                                          child: CircleAvatar(
+                                            radius: 29,
+                                            backgroundColor: Colors.grey.shade700,
+                                          ),
+                                        ),
+                                        SizedBox(width: 20,),
+                                        Text('username',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),),
+                                      ],
+                                    ),
+                                  ),
+                                  CircleAvatar(
+                                    radius: 16,
+                                    backgroundColor: Colors.blue,
+                                    child: CircleAvatar(
+                                      radius: 5,
+                                      backgroundColor: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                      },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
- */
+          );
+        },
+    );
+  }
+
+
+}
+
